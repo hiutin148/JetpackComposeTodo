@@ -1,8 +1,10 @@
 package com.hiutin.jetpackcomposetodo.di
 
 import android.content.Context
+import com.hiutin.jetpackcomposetodo.data.repositories.CategoryRepositoryImpl
 import com.hiutin.jetpackcomposetodo.data.repositories.ReminderSchedulerImpl
 import com.hiutin.jetpackcomposetodo.data.repositories.TaskRepositoryImpl
+import com.hiutin.jetpackcomposetodo.domain.repositories.CategoryRepository
 import com.hiutin.jetpackcomposetodo.domain.repositories.ReminderScheduler
 import com.hiutin.jetpackcomposetodo.domain.repositories.TaskRepository
 import dagger.Binds
@@ -21,6 +23,12 @@ abstract class RepositoryBindModule {
     abstract fun bindTaskRepository(
         taskRepositoryImpl: TaskRepositoryImpl
     ): TaskRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindCategoryRepository(
+        categoryRepositoryImpl: CategoryRepositoryImpl
+    ): CategoryRepository
 }
 
 

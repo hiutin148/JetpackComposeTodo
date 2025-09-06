@@ -14,19 +14,19 @@ fun AppNav( navController: NavHostController ,modifier: Modifier = Modifier) {
 
     NavHost(navController = navController, startDestination = AppRoute.TodoList.route) {
         composable(route = AppRoute.TodoList.route) {
-            TodoListScreen(navController, modifier = Modifier)
+            TodoListScreen(navController, modifier = modifier)
         }
 
         composable(
             route = AppRoute.CategoriesList.route,
         ) {
-            CategoriesListScreen(navController, modifier = Modifier)
+            CategoriesListScreen(modifier = modifier)
         }
 
         composable(
             route = AppRoute.AddTask.route,
         ) {
-            AddTaskScreen(navController, modifier = Modifier)
+            AddTaskScreen(navController, modifier = modifier)
         }
     }
 }

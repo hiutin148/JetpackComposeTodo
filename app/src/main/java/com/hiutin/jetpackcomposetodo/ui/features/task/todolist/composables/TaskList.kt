@@ -1,4 +1,4 @@
-package com.hiutin.jetpackcomposetodo.ui.features.todolist.composables
+package com.hiutin.jetpackcomposetodo.ui.features.task.todolist.composables
 
 import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn

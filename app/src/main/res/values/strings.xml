@@ -29,9 +29,15 @@
     <string name="delete">Delete</string>
     <string name="remind_me">Remind me</string>
     <string name="skip">Skip</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="continue_text">Continue</string>
     <string name="cancel">Cancel</string>
+    <string name="no_category_found">No category found</string>
+    <string name="add">Add</string>
+    <string name="name">Name</string>
+    <string name="add_category">Add Category</string>
+    <string name="choose_color">Choose color</string>
+    <string name="save">Save</string>
 
 
 </resources>

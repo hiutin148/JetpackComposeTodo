@@ -11,4 +11,5 @@ data class Task(
     val time: LocalTime?,
     val subtasks: List<SubTask> = emptyList(),
     val isDone: Boolean = false,
+    val category: Category? = null,
 )

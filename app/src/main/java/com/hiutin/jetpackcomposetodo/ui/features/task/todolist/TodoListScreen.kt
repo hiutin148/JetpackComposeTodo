@@ -24,9 +24,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.hiutin.jetpackcomposetodo.navigation.NavigationKeys
-import com.hiutin.jetpackcomposetodo.ui.features.todolist.TodoListViewModel
+import com.hiutin.jetpackcomposetodo.ui.features.task.todolist.composables.TaskList
 import com.hiutin.jetpackcomposetodo.ui.features.todolist.composables.DateHeader
-import com.hiutin.jetpackcomposetodo.ui.features.todolist.composables.TaskList
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

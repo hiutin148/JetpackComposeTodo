@@ -21,9 +21,7 @@ fun DismissKeyboardOnTapOutside(
             .fillMaxSize()
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
-                    // 1) Clear focus để TextField mất focus
                     focusManager.clearFocus()
-                    // 2) (Tuỳ chọn) Ẩn keyboard phòng trường hợp OEM/IME không tắt
                     keyboardController?.hide()
                 })
             }

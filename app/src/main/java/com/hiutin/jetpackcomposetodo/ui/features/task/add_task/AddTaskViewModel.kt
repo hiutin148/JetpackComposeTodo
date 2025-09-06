@@ -7,14 +7,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hiutin.jetpackcomposetodo.domain.models.Category
 import com.hiutin.jetpackcomposetodo.domain.models.SubTask
 import com.hiutin.jetpackcomposetodo.domain.models.Task
+import com.hiutin.jetpackcomposetodo.domain.repositories.CategoryRepository
 import com.hiutin.jetpackcomposetodo.domain.repositories.ReminderScheduler
 import com.hiutin.jetpackcomposetodo.domain.repositories.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalTime
@@ -24,8 +28,15 @@ import javax.inject.Inject
 @HiltViewModel
 class AddTaskViewModel @Inject constructor(
     private val repository: TaskRepository,
+    private val categoryRepository: CategoryRepository,
     private val reminderScheduler: ReminderScheduler
 ) : ViewModel() {
+
+    val categories: StateFlow<List<Category>> = categoryRepository.getAllCategories().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
+    )
 
     private val _uiState = MutableStateFlow<AddTaskState>(AddTaskState.Idle)
     val uiState: StateFlow<AddTaskState> = _uiState.asStateFlow()
@@ -37,6 +48,10 @@ class AddTaskViewModel @Inject constructor(
     var time by mutableStateOf<LocalTime?>(null)
         private set
     var needRemind by mutableStateOf(false)
+        private set
+
+    var selectedCategory by mutableStateOf<Category?>(null)
+        private set
 
     private val _subtasks = MutableStateFlow<List<SubTask>>(emptyList())
     val subtasks: StateFlow<List<SubTask>> = _subtasks
@@ -52,6 +67,10 @@ class AddTaskViewModel @Inject constructor(
 
     fun changeNeedRemind(value: Boolean) {
         needRemind = value
+    }
+
+    fun selectCategory(category: Category) {
+        selectedCategory = if (category != selectedCategory) category else null
     }
 
     fun addSubTask(subtaskContent: String) {
@@ -76,10 +95,12 @@ class AddTaskViewModel @Inject constructor(
                 val newTask = Task(
                     id,
                     taskText.text,
-                    description = "",
+                    "",
                     date,
                     time,
-                    _subtasks.value
+                    _subtasks.value,
+                    false,
+                    selectedCategory
                 )
                 if (date != null && time != null && needRemind) {
                     reminderScheduler.schedule(newTask)

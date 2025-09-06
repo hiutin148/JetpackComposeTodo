@@ -1,7 +1,8 @@
-package com.hiutin.jetpackcomposetodo.ui.features.todolist.composables
+package com.hiutin.jetpackcomposetodo.ui.features.task.todolist.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -87,6 +88,19 @@ fun TaskItem(
                         text = task.title.orEmpty()
                     )
                 }
+                if (task.category != null)
+                    Box(
+                        Modifier.padding(start = 48.dp)
+                    ) {
+                        Text(
+                            task.category.name,
+                            style = MaterialTheme.typography.bodySmall,
+                            fontWeight = FontWeight.SemiBold,
+                            color = task.category.color,
+                            modifier = Modifier
+                                .background(color = task.category.color.copy(alpha = 0.1f))
+                        )
+                    }
 
                 Column(modifier = Modifier.padding(start = 48.dp)) {
                     task.subtasks.forEachIndexed { index, subTask ->

@@ -89,5 +89,8 @@ dependencies {
     // Material Icons
     implementation(libs.androidx.material.icons.extended)
 
+    // Colors picker
+    implementation(libs.colorpicker.compose)
+
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 }

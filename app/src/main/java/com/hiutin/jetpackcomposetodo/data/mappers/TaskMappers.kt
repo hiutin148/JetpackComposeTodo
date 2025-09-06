@@ -3,7 +3,7 @@ package com.hiutin.jetpackcomposetodo.data.mappers
 import com.hiutin.jetpackcomposetodo.data.helpers.Converters
 import com.hiutin.jetpackcomposetodo.data.local.entities.SubTaskEntity
 import com.hiutin.jetpackcomposetodo.data.local.entities.TaskEntity
-import com.hiutin.jetpackcomposetodo.data.local.entities.TaskWithSubtasks
+import com.hiutin.jetpackcomposetodo.data.local.entities.TaskWithDetails
 import com.hiutin.jetpackcomposetodo.domain.models.SubTask
 import com.hiutin.jetpackcomposetodo.domain.models.Task
 
@@ -15,6 +15,7 @@ fun Task.toEntity(): TaskEntity {
         date = Converters.fromLocalDate(this.date),
         time = Converters.fromLocalTime(this.time),
         isDone = this.isDone,
+        categoryId = category?.id
     )
 }
 
@@ -27,7 +28,7 @@ fun SubTask.toEntity(taskId: String): SubTaskEntity {
     )
 }
 
-fun TaskWithSubtasks.toModel(): Task {
+fun TaskWithDetails.toModel(): Task {
     return Task(
         id = task.id,
         title = task.title.orEmpty(),
@@ -41,6 +42,7 @@ fun TaskWithSubtasks.toModel(): Task {
                 title = it.title,
                 isDone = it.isDone
             )
-        }
+        },
+        category = category?.toModel()
     )
 }

@@ -8,7 +8,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.hiutin.jetpackcomposetodo.data.local.entities.SubTaskEntity
 import com.hiutin.jetpackcomposetodo.data.local.entities.TaskEntity
-import com.hiutin.jetpackcomposetodo.data.local.entities.TaskWithSubtasks
+import com.hiutin.jetpackcomposetodo.data.local.entities.TaskWithDetails
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -30,11 +30,11 @@ interface TaskDao {
 
     @Transaction
     @Query("SELECT * FROM tasks WHERE id = :taskId")
-    suspend fun getTaskWithSubtasks(taskId: String): TaskWithSubtasks?
+    suspend fun getTask(taskId: String): TaskWithDetails?
 
     @Transaction
     @Query("SELECT * FROM tasks")
-    fun getAllTasksWithSubtasks(): Flow<List<TaskWithSubtasks>>
+    fun getAllTasks(): Flow<List<TaskWithDetails>>
 
     @Query("UPDATE tasks SET is_done = :isDone WHERE id = :taskId")
     suspend fun updateTaskStatus(taskId: String, isDone: Boolean)
@@ -47,4 +47,8 @@ interface TaskDao {
 
     @Delete
     suspend fun delete(taskEntity: TaskEntity)
+
+    @Transaction
+    @Query("SELECT * FROM tasks WHERE category_id = :cateId")
+    suspend fun getTasksByCategory(cateId: String): List<TaskWithDetails>
 }

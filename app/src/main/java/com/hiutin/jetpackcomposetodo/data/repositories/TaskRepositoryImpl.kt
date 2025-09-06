@@ -18,7 +18,7 @@ class TaskRepositoryImpl @Inject() constructor(val taskDao: TaskDao) : TaskRepos
     }
 
     override suspend fun getTask(taskId: String): Task? {
-        return taskDao.getTaskWithSubtasks(taskId)?.toModel()
+        return taskDao.getTask(taskId)?.toModel()
     }
 
     override suspend fun updateTaskStatus(taskId: String, isDone: Boolean) {
@@ -40,6 +40,6 @@ class TaskRepositoryImpl @Inject() constructor(val taskDao: TaskDao) : TaskRepos
     }
 
     override fun getTasks(): Flow<List<Task>> {
-        return taskDao.getAllTasksWithSubtasks().map { tasks -> tasks.map { it.toModel() } }
+        return taskDao.getAllTasks().map { tasks -> tasks.map { it.toModel() } }
     }
 }
